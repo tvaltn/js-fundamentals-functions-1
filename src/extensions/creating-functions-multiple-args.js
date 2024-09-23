@@ -9,6 +9,13 @@
 // -1, 1        | [-1, 0, 1]
 //
 // TODO: write code below
+function createNumberArray(lower, upper) {
+  const array = []
+  for (let i = lower; i <= upper; i++) {
+    array.push(i)
+  }
+  return array
+}
 
 // 2. define a function that takes two arguments: a string and a number.
 // The function should return the same string but in upper case with exclamation
@@ -21,6 +28,11 @@
 // error, 10    | ERROR!!!!!!!!!!
 //
 // TODO: write code below
+function shout(string, exclamations) {
+  let newString = string.toUpperCase()
+  newString += '!'.repeat(exclamations)
+  return newString
+}
 
 // 3. define a function that takes two arguments: a string and a number.
 // The function should return the new time in 24hr time after adding the additional time in minutes.
@@ -33,10 +45,30 @@
 // '12:50', 120 | '14:50'
 // '23:50', 30  | '00:20'
 // TODO: write code below
+function addMinutes(time, minutes) {
+  const timeSplit = time.split(':')
+
+  const minutesToAdd = minutes % 60
+  let newMinutes = (minutesToAdd + Number(timeSplit[1])) % 60
+
+  const hoursToAdd = Math.floor(minutes / 60)
+  const extraHour = Math.floor((minutesToAdd + Number(timeSplit[1])) / 60)
+  let newHours = (hoursToAdd + extraHour + Number(timeSplit[0])) % 24
+
+  if (newMinutes < 10) newMinutes = '0' + newMinutes
+  if (newHours === 0) newHours = '0' + newHours
+  // a bit confusing that the test only wants double digit hour when its 00? :)
+
+  let newTime = ''
+  newTime += newHours + ':'
+  newTime += newMinutes
+
+  return newTime
+}
 
 // TODO: change the exported value to be the name of the function you defined
 module.exports = {
-  a: undefined, // 1. change undefined to be the name of the function defined to create the range of numbers (the first todo)
-  b: undefined, // 2. change undefined to be the name of the function defined to return the string with exclamations (the second todo)
-  c: undefined // etc
+  a: createNumberArray, // 1. change undefined to be the name of the function defined to create the range of numbers (the first todo)
+  b: shout, // 2. change undefined to be the name of the function defined to return the string with exclamations (the second todo)
+  c: addMinutes // etc
 }
