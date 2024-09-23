@@ -48,12 +48,11 @@ function shout(string, exclamations) {
 function addMinutes(time, minutes) {
   const timeSplit = time.split(':')
 
-  const minutesToAdd = minutes % 60
-  let newMinutes = (minutesToAdd + Number(timeSplit[1])) % 60
+  const minutesToAdd = minutes + Number(timeSplit[1])
+  let newMinutes = minutesToAdd % 60
 
-  const hoursToAdd = Math.floor(minutes / 60)
-  const extraHour = Math.floor((minutesToAdd + Number(timeSplit[1])) / 60)
-  let newHours = (hoursToAdd + extraHour + Number(timeSplit[0])) % 24
+  const hoursToAdd = Math.floor(minutesToAdd / 60)
+  let newHours = (hoursToAdd + Number(timeSplit[0])) % 24
 
   if (newMinutes < 10) newMinutes = '0' + newMinutes
   if (newHours === 0) newHours = '0' + newHours
